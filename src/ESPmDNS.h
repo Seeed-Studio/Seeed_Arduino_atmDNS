@@ -42,6 +42,7 @@ License (MIT license):
 #define ESP32MDNS_H
 
 #include "Arduino.h"
+#include "IPAddress.h"
 #include "IPv6Address.h"
 #include "mdns.h"
 

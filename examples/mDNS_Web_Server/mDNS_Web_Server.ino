@@ -16,7 +16,7 @@
  */
 
 
-#include <WiFi.h>
+#include <AtWiFi.h>
 #include <ESPmDNS.h>
 #include <WiFiClient.h>
 

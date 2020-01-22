@@ -9,8 +9,8 @@
   - The last one powered on should now find the other.
  */
 
-#include <WiFi.h>
-#include <ESPmDNS.h>
+#include <AtWiFi.h>
+#include <Seeed_atmDNS.h>
 
 const char* ssid     = "...";
 const char* password = "...";
