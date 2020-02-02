@@ -1,13 +1,13 @@
 /*
-  ESP8266 mDNS-SD responder and query sample
+    ESP8266 mDNS-SD responder and query sample
 
-  This is an example of announcing and finding services.
-  
-  Instructions:
-  - Update WiFi SSID and password as necessary.
-  - Flash the sketch to two ESP8266 boards
-  - The last one powered on should now find the other.
- */
+    This is an example of announcing and finding services.
+
+    Instructions:
+    - Update WiFi SSID and password as necessary.
+    - Flash the sketch to two ESP8266 boards
+    - The last one powered on should now find the other.
+*/
 
 #include <AtWiFi.h>
 #include <Seeed_atmDNS.h>
@@ -30,7 +30,7 @@ void setup() {
 
     if (!MDNS.begin("ESP32_Browser")) {
         Serial.println("Error setting up MDNS responder!");
-        while(1){
+        while (1) {
             delay(1000);
         }
     }
@@ -55,7 +55,7 @@ void loop() {
     delay(10000);
 }
 
-void browseService(const char * service, const char * proto){
+void browseService(const char* service, const char* proto) {
     Serial.printf("Browsing for service _%s._%s.local. ... ", service, proto);
     int n = MDNS.queryService(service, proto);
     if (n == 0) {

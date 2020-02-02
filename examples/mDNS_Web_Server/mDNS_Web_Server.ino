@@ -1,19 +1,19 @@
 /*
-  ESP32 mDNS responder sample
+    ESP32 mDNS responder sample
 
-  This is an example of an HTTP server that is accessible
-  via http://esp32.local URL thanks to mDNS responder.
+    This is an example of an HTTP server that is accessible
+    via http://esp32.local URL thanks to mDNS responder.
 
-  Instructions:
-  - Update WiFi SSID and password as necessary.
-  - Flash the sketch to the ESP32 board
-  - Install host software:
+    Instructions:
+    - Update WiFi SSID and password as necessary.
+    - Flash the sketch to the ESP32 board
+    - Install host software:
     - For Linux, install Avahi (http://avahi.org/).
     - For Windows, install Bonjour (http://www.apple.com/support/bonjour/).
     - For Mac OSX and iOS support is built in through Bonjour already.
-  - Point your browser to http://esp32.local, you should see a response.
+    - Point your browser to http://esp32.local, you should see a response.
 
- */
+*/
 
 
 #include <AtWiFi.h>
@@ -26,8 +26,7 @@ const char* password = "..............";
 // TCP server at port 80 will respond to HTTP requests
 WiFiServer server(80);
 
-void setup(void)
-{  
+void setup(void) {
     Serial.begin(115200);
 
     // Connect to WiFi network
@@ -52,7 +51,7 @@ void setup(void)
     //   we send our IP address on the WiFi network
     if (!MDNS.begin("esp32")) {
         Serial.println("Error setting up MDNS responder!");
-        while(1) {
+        while (1) {
             delay(1000);
         }
     }
@@ -66,8 +65,7 @@ void setup(void)
     MDNS.addService("http", "tcp", 80);
 }
 
-void loop(void)
-{
+void loop(void) {
     // Check if a client has connected
     WiFiClient client = server.available();
     if (!client) {
@@ -77,7 +75,7 @@ void loop(void)
     Serial.println("New client");
 
     // Wait for data from client to become available
-    while(client.connected() && !client.available()){
+    while (client.connected() && !client.available()) {
         delay(1);
     }
 
@@ -98,17 +96,14 @@ void loop(void)
     Serial.println(req);
 
     String s;
-    if (req == "/")
-    {
+    if (req == "/") {
         IPAddress ip = WiFi.localIP();
         String ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
         s = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n<!DOCTYPE HTML>\r\n<html>Hello from ESP32 at ";
         s += ipStr;
         s += "</html>\r\n\r\n";
         Serial.println("Sending 200");
-    }
-    else
-    {
+    } else {
         s = "HTTP/1.1 404 Not Found\r\n\r\n";
         Serial.println("Sending 404");
     }
